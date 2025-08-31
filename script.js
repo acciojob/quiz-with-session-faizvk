@@ -23,7 +23,6 @@ function renderQuestions() {
     for (let j = 0; j < question.choices.length; j++) {
       const choice = question.choices[j];
 
-      const label = document.createElement("label");
       const choiceElement = document.createElement("input");
       choiceElement.type = "radio";
       choiceElement.name = `question-${i}`;
@@ -40,8 +39,10 @@ function renderQuestions() {
         sessionStorage.setItem("progress", JSON.stringify(userAnswers));
       });
 
+      const label = document.createElement("label");
       label.appendChild(choiceElement);
       label.appendChild(document.createTextNode(choice));
+
       questionElement.appendChild(label);
       questionElement.appendChild(document.createElement("br"));
     }
@@ -65,16 +66,14 @@ function calculateScore() {
 submitBtn.addEventListener("click", () => {
   const score = calculateScore();
   scoreElement.textContent = `Your score is ${score} out of ${questions.length}.`;
-
-  // save final score in localStorage
   localStorage.setItem("score", score);
 });
 
-// if score was previously saved, show it
+// restore score if already submitted
 const savedScore = localStorage.getItem("score");
 if (savedScore !== null) {
   scoreElement.textContent = `Your score is ${savedScore} out of ${questions.length}.`;
 }
 
-// initial render
-renderQuestions();
+// initial render AFTER DOM is ready
+document.addEventListener("DOMContentLoaded", renderQuestions);
