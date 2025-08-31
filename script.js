@@ -57,9 +57,9 @@ function renderQuestions() {
       choiceElement.name = `question-${i}`; // Groups radio buttons for one question.
       choiceElement.value = choice;
 
-      // If this answer was saved in session storage, check the radio button.
+      // If this answer was saved in session storage, set the 'checked' attribute.
       if (userAnswers[i] === choice) {
-        choiceElement.checked = true;
+        choiceElement.setAttribute("checked", "true");
       }
 
       // When the user selects an answer, save it to session storage.
@@ -108,3 +108,4 @@ if (savedScore !== null) {
 
 // Display the questions on the page.
 renderQuestions();
+
