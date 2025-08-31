@@ -75,5 +75,9 @@ if (savedScore !== null) {
   scoreElement.textContent = `Your score is ${savedScore} out of ${questions.length}.`;
 }
 
-// initial render AFTER DOM is ready
-document.addEventListener("DOMContentLoaded", renderQuestions);
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", renderQuestions);
+} else {
+  // DOM is already ready
+  renderQuestions();
+}
